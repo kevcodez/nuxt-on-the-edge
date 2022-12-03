@@ -5,6 +5,7 @@
     "dev": "nuxt dev"
   },
   "devDependencies": {
+    "@nuxtjs/supabase": "^0.3.0",
     "nuxt": "^3.0.0"
   }
 }

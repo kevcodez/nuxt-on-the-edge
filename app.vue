@@ -7,10 +7,14 @@
 //   const ip = ipHeader ? ipHeader.split(',')[0] : '-'
 //   return { city, ip }
 // })
-const { data: info } = await useAsyncData(() =>
-  globalThis.$fetch('/api/info', {
-    headers: useRequestHeaders(['x-forwarded-for', 'x-vercel-ip-city']),
-  })
+
+const supabaseClient = useSupabaseClient()
+const { data: info } = await useAsyncData(async () => {
+  const {data} = await supabaseClient.from('topic').select("id")
+
+  return data
+}
+  
 )
 
 const generatedAt = useState(() => new Date().toISOString())
@@ -47,25 +51,12 @@ const generatedAt = useState(() => new Date().toISOString())
       <main>
         <h1>Hello from the edge!</h1>
         <div class="info">
-          <div class="block">
-            <div class="contents">
-              <span>Your city</span>
-              <strong
-                :title="
-                  info.city === '-'
-                    ? 'GeoIP information could not be derived from your IP'
-                    : null
-                "
-              >
-                {{ info.city }}
-              </strong>
-            </div>
-          </div>
+       
 
           <div class="block">
             <div class="contents">
-              <span>Your IP address</span>
-              <strong>{{ info.ip }}</strong>
+              <span>Amount of topics</span>
+              <strong>{{ info?.length }}</strong>
             </div>
           </div>
         </div>

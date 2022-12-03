@@ -2,11 +2,4 @@
 export default defineNuxtConfig({
 
     modules: ['@nuxtjs/supabase'],
-    supabase: {
-        client: {
-            global: {
-                fetch:  (...args) => globalThis.fetch(...args)
-            },
-        }
-    }
 })

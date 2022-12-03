@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     supabase: {
         client: {
             global: {
-                fetch:  (...args) => fetch(...args)
+                fetch:  (...args) => globalThis.fetch(...args)
             },
         }
     }
